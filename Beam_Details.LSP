@@ -70,17 +70,18 @@
     (setq bx2 (mapcar '+ bx1 (list dis2 0.0 0.0)))
     (command "line"
 	     (mapcar '- bx1 (list 0.0 (* d 5) 0.0))
-	     (mapcar '+ bx1 '(0.0 (* d 5) 0.0))
+	     (mapcar '+ bx1 (list 0.0 (* d 5) 0.0))
 	     ""
     )
     (command "line"
 	     (mapcar '- bx2 (list 0.0 (* d 5) 0.0))
-	     (mapcar '+ bx2 '(0.0 (* d 5) 0.0))
+	     (mapcar '+ bx2 (list 0.0 (* d 5) 0.0))
 	     ""
     )
     (command "_layer" "n" layername1 "C" layercolor1 layername1 "")
-    (command "_.INSERT" "/reference.dwg" (mapcar '+ bx1 '(0.0 (* d 5) 0.0)) "1" "1" "" "")
-    (command "_.INSERT" "/reference.dwg" (mapcar '+ bx1 '(0.0 (* d -5) 0.0)) "1" "1" "" "")
+    (command "_.INSERT" "/reference.dwg" (mapcar '+ bx1 (list 0.0 (* d 5) 0.0)) "1" "1" "" "")
+    (command-s)
+    (command "_.INSERT" "/reference.dwg" (mapcar '+ bx1 (list 0.0 (* d -5) 0.0)) "1" "1" "" "")
     (command-s)
     (setq sp (append sp (list dis1 dis2)))
     (setq i (1+ i))
