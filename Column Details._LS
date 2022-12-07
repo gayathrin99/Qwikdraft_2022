@@ -52,39 +52,37 @@
     )
     (command "donut" "0.0" "1.0" (mapcar '+ pt1 '(0 -9 0)) "")
     (command "circle" (mapcar '+ pt1 '(0 -12 0)) "0.5" "")
-    (setq textheight (getint "Enter the height of text"))
     (command "mtext"
-	     (mapcar '+ pt1 (list 1 (* textheight -5) 0))
+	     (mapcar '+ pt1 '(1 -9 0))
 	     "Height"
-	     textheight
-	     (mapcar '+ pt2 (list 0 (* textheight -5) 0))
+	     "1.5"
+	     (mapcar '+ pt2 '(0 -12 0))
 	     (strcat (nth 3 (nth x lest)) "#" (nth 4 (nth x lest)))
 	     ""
     )
     (command "mtext"
-	     (mapcar '+ pt1 (list 1 (* textheight -5) 0))
+	     (mapcar '+ pt1 '(1 -12 0))
 	     "Height"
-	     textheight
-	     (mapcar '+ pt2 (list 0 (* textheight -5) 0))
+	     "1.5"
+	     (mapcar '+ pt2 '(0 -15 0))
 	     (strcat (nth 5 (nth x lest)) "-#" (nth 6 (nth x lest)))
 	     ""
     )
     (command "mtext"
 	     (mapcar '+ pt2 '(5 +10 0))
 	     "Height"
-	     textheight
+	     "1.5"
 	     (mapcar '+ pt2 '(20 0 0))
 	     (strcat (nth 9 (nth x lest)) "-" (nth 10 (nth x lest)))
 	     ""
     )
     (command ".chprop" (entlast) "" "la" layername1 "")
     (command ".layer" "n" layername2 "C" layercolor2 layername2	"")
-    (setq c (getint "Enter the cover for steel"))
     (command "rectang"
 	     "f"
 	     rectfillet
-	     (mapcar '+ pt1 (list c c 0))
-	     (mapcar '- pt3 (list c c 0))
+	     (mapcar '+ pt1 '(0.5 0.5 0))
+	     (mapcar '- pt3 '(0.5 0.5 0))
 	     ""
     )
     (command ".chprop" (entlast) "" "la" layername2 "")

@@ -14,22 +14,20 @@
   (setvar "cmdecho" 0)
   (setq restoreosmode (getvar "osmode"))
   (setvar "INSUNITS" 4)
-  ;;  (setq	file (getfiled "Select the CSV file with Footing details"
-  ;;  ""
-  ;;  "csv"
-  ;;  16
-  ;;   )
-  ;; )
-  (setq	file
-	 "E:/purvaja/WDBM/LISP/QWIKDRAFT/AUTOLISP/Website/Footing Details.csv"
-  )
+    (setq	file (getfiled "Select the CSV file with Footing details"
+    ""
+    "csv"
+    16
+    )
+   )
+  
   (setq letf (LM:readcsv file))
   
   (princ letf)
   (setq layername1 "Footing")
   (setq layercolor1 "255")
   (setq layercolor2 "6")
-  (command "_.INSERT" "E:/purvaja/WDBM/LISP/QWIKDRAFT/AUTOLISP/Website/Drafting/Footing reference.dwg" '(0 0 0) "1" "1" "" "")
+  (command "_.INSERT" "~/Footing reference.dwg" '(0 0 0) "1" "1" "" "")
   (command-s)
   (setq a 1)
   (setq c (getint "What is the cover for steel?"))

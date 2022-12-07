@@ -14,20 +14,21 @@
   (setvar "cmdecho" 0)
   (setq restoreosmode (getvar "osmode"))
   (setvar "INSUNITS" 4)
-  ;;  (setq	file (getfiled "Select the CSV file with Footing details"
-  ;;  ""
-  ;;  "csv"
-  ;;  16
-  ;;   )
-  ;; )
-  (setq	file
-	 "E:/purvaja/WDBM/LISP/QWIKDRAFT/AUTOLISP/Website/Footing Details.csv"
-  )
+    (setq	file (getfiled "Select the CSV file with Footing details"
+    ""
+    "csv"
+    16
+    )
+   )
+  
   (setq letf (LM:readcsv file))
+  
   (princ letf)
   (setq layername1 "Footing")
   (setq layercolor1 "255")
   (setq layercolor2 "6")
+  (command "_.INSERT" "E:/purvaja/WDBM/LISP/QWIKDRAFT/AUTOLISP/Website/Drafting/Footing reference.dwg" '(0 0 0) "1" "1" "" "")
+  (command-s)
   (setq a 1)
   (setq c (getint "What is the cover for steel?"))
   (while (< a (length letf))
@@ -48,25 +49,186 @@
     (command ".layer" "n" layername1 "C" layercolor1 layername1	"")
     (command "rectang" "f" 0 pt1 pt3 "")
     (command "chprop" (entlast) "" "Color" "Green" "")
-    (command "line" (mapcar '+ pt1 (list c c 0) (list 0 (* 0.25 b) 0)) (mapcar '+ pt2 (list (- c) c 0) (list 0 (* 0.25 b) 0)) "")
-    (command "line" (mapcar '+ pt1 (list c c 0) (list 0 (* 0.25 b) 0)) (mapcar '+ pt1 (list c c 0) (list 0 (+ (* 0.25 b) (* c 5)) 0)) "")
-    (command "line" (mapcar '+ pt2 (list (- c) c 0) (list 0 (* 0.25 b) 0)) (mapcar '+ pt2 (list (- c) c 0) (list 0 (+ (* 0.25 b) (* c 5)) 0)) "")
-    (command "line" (mapcar '+ pt1 (list c c 0) (list (* 0.25 l) 0 0)) (mapcar '+ pt4 (list c (- c) 0) (list (* 0.25 l) 0 0)) "")
-    (command "line" (mapcar '+ pt1 (list c c 0) (list (* 0.25 l) 0 0)) (mapcar '+ pt1 (list c c 0) (list (+ (* 0.25 l) (* c 5)) 0 0)) "")
-    (command "line" (mapcar '+ pt4 (list c (- c) 0) (list (* 0.25 l) 0 0)) (mapcar '+ pt4 (list c (- c) 0) (list (+ (* 0.25 l) (* c 5)) 0 0)) "")
-    (command "line" (mapcar '+ pt2 (list (- c) c 0) (list (* -0.25 l) 0 0)) (mapcar '+ pt3 (list (- c) (- c) 0) (list (* -0.25 l) 0 0)) "")
-    (command "chprop" (entlast) "" "LT" "DASHED" "" "S" "100" "")
-    (command "line" (mapcar '+ pt4 (list c (- c) 0) (list 0 (* -0.25 b) 0)) (mapcar '+ pt3 (list (- c) (- c) 0) (list 0 (* -0.25 b) 0)) "")
-    (command "chprop" (entlast) "" "LT" "DASHED" "" "S" "1000" "")
-    (command "rectang" "f" 0 (mapcar '+ pt1 '(-100 -100 0)) (mapcar '+ pt3 '(100 100 0)) "")
-    (command "chprop" "" "LT" "DASHED" "" "S" "100" "" "Color" "White" "")
+    (command "line"
+	     (mapcar '+ pt1 (list c c 0) (list 0 (* 0.25 b) 0))
+	     (mapcar '+ pt2 (list (- c) c 0) (list 0 (* 0.25 b) 0))
+	     ""
+    )
+    (command "chprop"
+	     (entlast)
+	     ""
+	     "LT"
+	     "DASHED"
+	     ""
+	     "LTScale"
+	     "15"
+	     ""
+    )
+    (command "line"
+	     (mapcar '+ pt1 (list c c 0) (list 0 (* 0.25 b) 0))
+	     (mapcar '+
+		     pt1
+		     (list c c 0)
+		     (list 0 (+ (* 0.25 b) (* c 5)) 0)
+	     )
+	     ""
+    )
+    (command "chprop"
+	     (entlast)
+	     ""
+	     "LT"
+	     "DASHED"
+	     ""
+	     "LTScale"
+	     "15"
+	     ""
+    )
+    (command "line"
+	     (mapcar '+ pt2 (list (- c) c 0) (list 0 (* 0.25 b) 0))
+	     (mapcar '+
+		     pt2
+		     (list (- c) c 0)
+		     (list 0 (+ (* 0.25 b) (* c 5)) 0)
+	     )
+	     ""
+    )
+    (command "chprop"
+	     (entlast)
+	     ""
+	     "LT"
+	     "DASHED"
+	     ""
+	     "LTScale"
+	     "15"
+	     ""
+    )
+    (command "line"
+	     (mapcar '+ pt1 (list c c 0) (list (* 0.25 l) 0 0))
+	     (mapcar '+ pt4 (list c (- c) 0) (list (* 0.25 l) 0 0))
+	     ""
+    )
+    (command "chprop"
+	     (entlast)
+	     ""
+	     "LT"
+	     "DASHED"
+	     ""
+	     "LTScale"
+	     "15"
+	     ""
+    )
+    (command "line"
+	     (mapcar '+ pt1 (list c c 0) (list (* 0.25 l) 0 0))
+	     (mapcar '+
+		     pt1
+		     (list c c 0)
+		     (list (+ (* 0.25 l) (* c 5)) 0 0)
+	     )
+	     ""
+    )
+    (command "chprop"
+	     (entlast)
+	     ""
+	     "LT"
+	     "DASHED"
+	     ""
+	     "LTScale"
+	     "15"
+	     ""
+    )
+    (command "line"
+	     (mapcar '+ pt4 (list c (- c) 0) (list (* 0.25 l) 0 0))
+	     (mapcar '+
+		     pt4
+		     (list c (- c) 0)
+		     (list (+ (* 0.25 l) (* c 5)) 0 0)
+	     )
+	     ""
+    )
+    (command "chprop"
+	     (entlast)
+	     ""
+	     "LT"
+	     "DASHED"
+	     ""
+	     "LTScale"
+	     "15"
+	     ""
+    )
+    (command "line"
+	     (mapcar '+ pt2 (list (- c) c 0) (list (* -0.25 l) 0 0))
+	     (mapcar '+ pt3 (list (- c) (- c) 0) (list (* -0.25 l) 0 0))
+	     ""
+    )
+    (command "line"
+	     (mapcar '+ pt2 (list (- c) c 0) (list (* -0.25 l) 0 0))
+	     (mapcar '+
+		     pt2
+		     (list (- c) c 0)
+		     (list (* -0.25 l) 0 0)
+		     (list (* c -5) 0 0)
+	     )
+	     ""
+    )
+    (command "line"
+	     (mapcar '+ pt3 (list (- c) (- c) 0) (list (* -0.25 l) 0 0))
+	     (mapcar '+
+		     pt3
+		     (list (- c) (- c) 0)
+		     (list (* -0.25 l) 0 0)
+		     (list (* c -5) 0 0)
+	     )
+	     ""
+    )
+    (command "line"
+	     (mapcar '+ pt4 (list c (- c) 0) (list 0 (* -0.25 b) 0))
+	     (mapcar '+ pt3 (list (- c) (- c) 0) (list 0 (* -0.25 b) 0))
+	     ""
+    )
+    (command "line"
+	     (mapcar '+ pt4 (list c (- c) 0) (list 0 (* -0.25 b) 0))
+	     (mapcar '+
+		     pt4
+		     (list c (- c) 0)
+		     (list 0 (* -0.25 b) 0)
+		     (list 0 (* c -5) 0)
+	     )
+	     ""
+    )
+    (command "line"
+	     (mapcar '+ pt3 (list (- c) (- c) 0) (list 0 (* -0.25 b) 0))
+	     (mapcar '+
+		     pt3
+		     (list (- c) (- c) 0)
+		     (list 0 (+ (* -0.25 b) (* c -5)) 0)
+	     )
+	     ""
+    )
     (command "rectang"
 	     "f"
 	     0
-	     (mapcar '+ pt1 (list 0 (* d -10) 0))
-	     (mapcar '+ pt1 (list 0 (* d -10) 0.0) (list l d 0.0))
+	     (mapcar '+ pt1 '(-100 -100 0))
+	     (mapcar '+ pt3 '(100 100 0))
 	     ""
     )
+    (command "chprop"
+	     (entlast)
+	     ""
+	     "LT"
+	     "DASHED"
+	     ""
+	     "LTScale"
+	     "10"
+	     ""
+    )
+    (command "chprop" "" "LT" "DASHED" "" "S" "100" "" "Color" "White"
+	     "")
+    (command "line" (mapcar '+ pt1 (list 0 (* d -10) 0)) (mapcar '+ pt1 (list 0 (* d -10) 0) (list 0 d 0)) "")
+    (command "line" (mapcar '+ pt1 (list 0 (* d -10) 0) (list 0 d 0)) (mapcar '+ pt1 (list (/ l 2) (* d -10) 0) (list -100 d 0)) "")
+    (command "line" (mapcar '+ pt1 (list (/ l 2) (* d -10) 0) (list -100 d 0)) (mapcar '+ pt1 (list (/ l 2) (* d -5) 0 ) (list -100 d 0)) "")
+    (command "line" (mapcar '+ pt1 (list 0 (* d -10) 0) (list (+ (/ l 2) 100) d 0)) (mapcar '+ pt1 (list 0 (* d -10) 0) (list l d 0)) "")
+    (command "line" (mapcar '+ pt1 (list 0 (* d -10) 0) (list l d 0)) (mapcar '+ pt1 (list 0 (* d -5) 0) (list l d 0)) "")
+    (command "line" (mapcar '+ pt1 (list l (* d -10) 0)) (mapcar '+ pt1 (list 0 (* d -10) 0) (list l d 0)) "")
     (command
       "rectang"
       "f"
@@ -79,7 +241,7 @@
 	      '(100 0 0.0)
       )
       ""
-    )
+    )    
     (setq a (1+ a))
   )
 )
