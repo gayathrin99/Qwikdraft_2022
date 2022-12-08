@@ -105,7 +105,7 @@
     (if (eq (rem j 2) 0)
       (progn
       (setq span1 (- (nth j sp) (nth (1- j) sp) (nth (- j 2) sp)))
-      (setq span2 (- (nth (+ j 2) sp) (nth (1+ j) sp) (nth j sp)))
+      (setq span2 (- (nth (+ j 1) sp) (nth j sp) (nth (1- j) sp)))
       (princ span1)
       (command "line" (mapcar '+ b4 (list (* 2 c) (* 2 (- c)) 0.0) (list (- span1 (* (qd:roundup (/ (* 0.33 span1) 1000) 0.25) 1000)) (* 2 (- c)) 0.0))
 			      (mapcar '+ b4 (list (* 2 c) (* 2 (- c)) 0.0) (list (+ span2 (* (qd:roundup (/ (* 0.33 span2) 1000) 0.25) 1000)) (* 2 (- c)) 0.0))
