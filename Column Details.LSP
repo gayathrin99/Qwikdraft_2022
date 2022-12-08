@@ -42,17 +42,17 @@
     (setvar "OSMODE" 0)
     (command ".layer" "n" layername1 "C" layercolor1 layername1	"")
     (command "rectang" "f" 0 pt1 pt3 "")
+	(setq textheight (getint "Enter the height of text"))
     (command "mtext"
-	     (mapcar '+ pt1 '(0 -6 0))
+	     (mapcar '+ pt1 (list 0 (* textheight -4) 0))
 	     "Height"
 	     "1"
-	     (mapcar '+ pt2 '(0 -1.5 0))
+	     (mapcar '+ pt2 (list 0 (* textheight -1) 0))
 	     (nth 0 (nth x lest))
 	     ""
     )
     (command "donut" "0.0" "1.0" (mapcar '+ pt1 '(0 -9 0)) "")
     (command "circle" (mapcar '+ pt1 '(0 -12 0)) "0.5" "")
-    (setq textheight (getint "Enter the height of text"))
     (command "mtext"
 	     (mapcar '+ pt1 (list 1 (* textheight -5) 0))
 	     "Height"
