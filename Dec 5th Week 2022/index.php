@@ -97,5 +97,25 @@ a:hover{
 <a href ="/Beam Details.php"> Beam Details </a>
 <br>
 <br>
+<?php
+// import dependencies (using composer's autoload)
+// if not using Composer, you'll want to require the
+require "mixpanel-php/lib/Mixpanel.php";
+// get the Mixpanel class instance with your project token
+$mp = Mixpanel::getInstance("4eee140182cfa0f760f4527869bfcc6a", array("host" => "api-eu.mixpanel.com"));
+
+// get the Mixpanel class instance, replace with your
+// project token
+$mp = Mixpanel::getInstance("MIXPANEL_PROJECT_TOKEN");
+
+// track an event
+$mp->track("button clicked", array("label" => "sign-up"));
+$mp = Mixpanel::getInstance("MIXPANEL_PROJECT_TOKEN");
+
+// create or update a profile with First Name, Last Name,
+// E-Mail Address, Phone Number, and Favorite Color
+// without updating geolocation data or $last_seen
+?>
+
 </body>
 </html>
