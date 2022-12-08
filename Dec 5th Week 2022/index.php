@@ -90,7 +90,7 @@ a:hover{
 </div>
 <br>
 <br>
-  <p style="font-size:30px"><strong>To get instant detailed drawings!</strong></p>
+  <p style="font-size:30px"><strong>Click the below links for the software!</strong></p>
   <br>
 <a href="/Column Details.php"> Column Details </a>
 <br>
