@@ -79,9 +79,10 @@
 	     ""
     )
     (command "_layer" "n" layername1 "C" layercolor1 layername1 "")
-    (command "_.INSERT" "/reference.dwg" (mapcar '+ bx1 (list 0.0 (* d 5) 0.0)) "1" "1" "" "")
+    (setq drawing (getfiled "Select the reference drawing from the downloaded \"Beams Details\" file" "" "dwg" 16))
+    (command "_.INSERT" drawing (mapcar '+ bx1 (list 0.0 (* d 5) 0.0)) "1" "1" "" "")
     (command-s)
-    (command "_.INSERT" "/reference.dwg" (mapcar '+ bx1 (list 0.0 (* d -5) 0.0)) "1" "1" "" "")
+    (command "_.INSERT" drawing (mapcar '+ bx1 (list 0.0 (* d -5) 0.0)) "1" "1" "" "")
     (command-s)
     (setq sp (append sp (list dis1 dis2)))
     (setq i (1+ i))

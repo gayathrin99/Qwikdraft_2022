@@ -17,9 +17,9 @@ iframe{
 </style>
 </head>
 <body>
-<a href="mailto: qwikdraft@gmail.com">
-    Mail us for any of your queries!
-</a>
+<p>
+    Mail us on :qwikdraft@gmail.com
+</p>
   <br>
   <p> Call us on :+91-9964704397</p>
   <p> Watch our demo video </p>
