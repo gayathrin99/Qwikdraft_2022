@@ -162,8 +162,8 @@ if (isset($_POST["upload"])){
     $mail = @mail($to, $subject, $message, $headers);  
      
     // Email sending status 
-    echo $mail?"<h1>Email Sent Successfully!</h1>":"<h1>Email sending failed.</h1>"; 
-          echo "Sent you a mail";
+          //echo $mail?"<h1>Email Sent Successfully!</h1>":"<h1>Email sending failed.</h1>"; 
+         // echo "Sent you a mail";
           $host="localhost";
           $username="gayathri_qwikdraft";
           $password=",rO=nhK[8";

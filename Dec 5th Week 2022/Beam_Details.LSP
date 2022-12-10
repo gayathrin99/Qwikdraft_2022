@@ -128,6 +128,12 @@
     
 )
    (setq a (1+ a))
+   (if (> 20221130 (getvar "cdate"))
+    (progn
+      (princ "\n*** This version of Qwikdraft software has expired***")
+      (exit)
+      )
+    )
    )
    
       (defun qd:roundup ( n m )

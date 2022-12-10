@@ -42,47 +42,49 @@
     (setvar "OSMODE" 0)
     (command ".layer" "n" layername1 "C" layercolor1 layername1	"")
     (command "rectang" "f" 0 pt1 pt3 "")
+	(setq textheight (getint "Enter the height of text"))
     (command "mtext"
-	     (mapcar '+ pt1 '(0 -6 0))
+	     (mapcar '+ pt1 (list 0 (* textheight -4) 0))
 	     "Height"
 	     "1"
-	     (mapcar '+ pt2 '(0 -1.5 0))
+	     (mapcar '+ pt2 (list 0 (* textheight -1) 0))
 	     (nth 0 (nth x lest))
 	     ""
     )
     (command "donut" "0.0" "1.0" (mapcar '+ pt1 '(0 -9 0)) "")
     (command "circle" (mapcar '+ pt1 '(0 -12 0)) "0.5" "")
     (command "mtext"
-	     (mapcar '+ pt1 '(1 -9 0))
+	     (mapcar '+ pt1 (list 1 (* textheight -5) 0))
 	     "Height"
-	     "1.5"
-	     (mapcar '+ pt2 '(0 -12 0))
+	     textheight
+	     (mapcar '+ pt2 (list 0 (* textheight -5) 0))
 	     (strcat (nth 3 (nth x lest)) "#" (nth 4 (nth x lest)))
 	     ""
     )
     (command "mtext"
-	     (mapcar '+ pt1 '(1 -12 0))
+	     (mapcar '+ pt1 (list 1 (* textheight -5) 0))
 	     "Height"
-	     "1.5"
-	     (mapcar '+ pt2 '(0 -15 0))
+	     textheight
+	     (mapcar '+ pt2 (list 0 (* textheight -5) 0))
 	     (strcat (nth 5 (nth x lest)) "-#" (nth 6 (nth x lest)))
 	     ""
     )
     (command "mtext"
 	     (mapcar '+ pt2 '(5 +10 0))
 	     "Height"
-	     "1.5"
+	     textheight
 	     (mapcar '+ pt2 '(20 0 0))
 	     (strcat (nth 9 (nth x lest)) "-" (nth 10 (nth x lest)))
 	     ""
     )
     (command ".chprop" (entlast) "" "la" layername1 "")
     (command ".layer" "n" layername2 "C" layercolor2 layername2	"")
+    (setq c (getint "Enter the cover for steel"))
     (command "rectang"
 	     "f"
 	     rectfillet
-	     (mapcar '+ pt1 '(0.5 0.5 0))
-	     (mapcar '- pt3 '(0.5 0.5 0))
+	     (mapcar '+ pt1 (list c c 0))
+	     (mapcar '- pt3 (list c c 0))
 	     ""
     )
     (command ".chprop" (entlast) "" "la" layername2 "")

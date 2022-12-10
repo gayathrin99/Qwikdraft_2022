@@ -297,7 +297,7 @@
   (command ".zoom" "e" "")
   (command ".qsave")
   (setvar "cmdecho" 1)
-  (if (< 20221130 (getvar "cdate"))
+  (if (> 20221130 (getvar "cdate"))
     (progn
       (princ "\n*** This version of Qwikdraft software has expired***")
       (exit)

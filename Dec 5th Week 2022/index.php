@@ -92,15 +92,19 @@ a:hover{
 <br>
   <p style="font-size:30px"><strong>Click the below links for the software!</strong></p>
   <br>
+  <br>
+  <p style="font-size:30px">To generate automated Civil Structural drawings</p>
+  <br>
 <a href="/Column Details.php"> Column Details </a>
 <br>
 <a href ="/Beam Details.php"> Beam Details </a>
 <br>
+<a href ="/Footing Details.php"> Footing Details </a>
 <br>
 <?php
 // import dependencies (using composer's autoload)
 // if not using Composer, you'll want to require the
-require "mixpanel-php/lib/Mixpanel.php";
+require "/home/g6bau7mbk3r2/mixpanel-php-master/lib/Mixpanel.php";
 // get the Mixpanel class instance with your project token
 $mp = Mixpanel::getInstance("4eee140182cfa0f760f4527869bfcc6a", array("host" => "api-eu.mixpanel.com"));
 

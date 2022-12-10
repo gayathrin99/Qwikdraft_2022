@@ -192,8 +192,8 @@ echo $mail?"<h1>Email Sent Successfully!</h1>":"<h1>Email sending failed.</h1>";
           $conn->close();       
 }
 
-require "mixpanel-php/lib/Mixpanel.php";
-$mp = Mixpanel::getInstance("MIXPANEL_PROJECT_TOKEN");
+require "/home/g6bau7mbk3r2/mixpanel-php-master/lib/Mixpanel.php";
+$mp = Mixpanel::getInstance("submit_button");
 
 // create or update a profile with First Name, Last Name,
 // E-Mail Address, Phone Number, and Favorite Color

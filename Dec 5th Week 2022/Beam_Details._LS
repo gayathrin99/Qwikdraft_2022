@@ -79,9 +79,10 @@
 	     ""
     )
     (command "_layer" "n" layername1 "C" layercolor1 layername1 "")
-    (command "_.INSERT" "/reference.dwg" (mapcar '+ bx1 (list 0.0 (* d 5) 0.0)) "1" "1" "" "")
+    (setq drawing (getfiled "Select the reference drawing from the downloaded \"Beams Details\" file" "" "dwg" 16))
+    (command "_.INSERT" drawing (mapcar '+ bx1 (list 0.0 (* d 5) 0.0)) "1" "1" "" "")
     (command-s)
-    (command "_.INSERT" "/reference.dwg" (mapcar '+ bx1 (list 0.0 (* d -5) 0.0)) "1" "1" "" "")
+    (command "_.INSERT" drawing (mapcar '+ bx1 (list 0.0 (* d -5) 0.0)) "1" "1" "" "")
     (command-s)
     (setq sp (append sp (list dis1 dis2)))
     (setq i (1+ i))
@@ -104,7 +105,7 @@
     (if (eq (rem j 2) 0)
       (progn
       (setq span1 (- (nth j sp) (nth (1- j) sp) (nth (- j 2) sp)))
-      (setq span2 (- (nth (+ j 2) sp) (nth (1+ j) sp) (nth j sp)))
+      (setq span2 (- (nth (+ j 1) sp) (nth j sp) (nth (1- j) sp)))
       (princ span1)
       (command "line" (mapcar '+ b4 (list (* 2 c) (* 2 (- c)) 0.0) (list (- span1 (* (qd:roundup (/ (* 0.33 span1) 1000) 0.25) 1000)) (* 2 (- c)) 0.0))
 			      (mapcar '+ b4 (list (* 2 c) (* 2 (- c)) 0.0) (list (+ span2 (* (qd:roundup (/ (* 0.33 span2) 1000) 0.25) 1000)) (* 2 (- c)) 0.0))
