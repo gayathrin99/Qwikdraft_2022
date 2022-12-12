@@ -101,6 +101,8 @@ a:hover{
 <br>
 <a href ="/Footing Details.php"> Footing Details </a>
 <br>
+<a href ="/Grid Lines.php"> Grid Lines </a>
+<br>
 <?php
 // import dependencies (using composer's autoload)
 // if not using Composer, you'll want to require the
