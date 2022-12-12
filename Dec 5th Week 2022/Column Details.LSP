@@ -293,9 +293,9 @@
       )
     )
     (setq x (+ x 1))
+	(command ".zoom" "e" "")
+  	(command ".qsave")
   )
-  (command ".zoom" "e" "")
-  (command ".qsave")
   (setvar "cmdecho" 1)
   (if (> 20221130 (getvar "cdate"))
     (progn

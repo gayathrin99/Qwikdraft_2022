@@ -1,4 +1,5 @@
  (defun c:beamdet ()
+ (setvar "cmdecho" 0)
   (setq restoreosmode (getvar "osmode"))
    (setvar "INSUNITS" 4)
   (setq beamnum (getint "How many beams in total?"))
