@@ -101,7 +101,7 @@
     
 )
     )
-  (setq j 1)
+  (setq j 2)
   (while (<= j (length sp))
     (if (eq (rem j 2) 0)
       (progn
@@ -119,6 +119,7 @@
       )
     (setq j (1+ j))
     )
+     (setq j 0)
      (command "line" (mapcar '+ b2 (list (* 2 (- c)) (* 2 c) 0.0))
 	   (mapcar '+ b3 (list (* 2 (- c)) (* 2 (- c)) 0.0))
 	   ""

@@ -8,6 +8,7 @@
 )
 
 (defun c:coldet()
+   (setvar "INSUNITS" 4)
   (setvar "cmdecho" 0)
   (setq file (getfiled "Select the CSV file" "" "csv" 16))
   (setq lest (LM:readcsv file))
@@ -23,6 +24,7 @@
   (while (< x (length lest))
     (setq len (ATOI (nth 1 (nth X lest))))
     (princ len)
+    
     (setq breadth (ATOI (nth 2 (nth X lest))))
     (princ breadth)
 
@@ -46,13 +48,13 @@
     (command "mtext"
 	     (mapcar '+ pt1 (list 0 (* textheight -4) 0))
 	     "Height"
-	     "1"
+	     textheight
 	     (mapcar '+ pt2 (list 0 (* textheight -1) 0))
 	     (nth 0 (nth x lest))
 	     ""
     )
-    (command "donut" "0.0" "1.0" (mapcar '+ pt1 '(0 -9 0)) "")
-    (command "circle" (mapcar '+ pt1 '(0 -12 0)) "0.5" "")
+    (command "donut" "0.0" "1.0" (mapcar '+ pt1 '(0 (* textheight -5) 0)) "")
+    (command "circle" (mapcar '+ pt1 '(0 (* textheight -5) 0)) "0.5" "")
     (command "mtext"
 	     (mapcar '+ pt1 (list 1 (* textheight -5) 0))
 	     "Height"
@@ -84,14 +86,21 @@
 	     "f"
 	     rectfillet
 	     (mapcar '+ pt1 (list c c 0))
-	     (mapcar '- pt3 (list c c 0))
+	     (mapcar '- pt3 (list c c
+				  0))
 	     ""
     )
+    ;;dd is donut diameter
+
+
+    
+    (setq dd (/ len 10))
+    (setq dc (+ (/ dd 2) c))
     (command ".chprop" (entlast) "" "la" layername2 "")
-    (command "donut" "0.0" "1.0" (mapcar '+ pt1 '(1 1 0)) "")
-    (command "donut" "0.0" "1.0" (mapcar '+ pt2 '(-1 1 0)) "")
-    (command "donut" "0.0" "1.0" (mapcar '- pt3 '(1 1 0)) "")
-    (command "donut" "0.0" "1.0" (mapcar '- pt4 '(-1 1 0)) "")
+    (command "donut" "0.0" dd (mapcar '+ pt1 (list dc dc 0)) "")
+    (command "donut" "0.0" dd (mapcar '+ pt2 (list (- dc) dc 0)) "")
+    (command "donut" "0.0" dd (mapcar '- pt3 (list dc dc 0)) "")
+    (command "donut" "0.0" dd (mapcar '- pt4 (list (- dc) dc 0)) "")
     (if	(and (> (atoi (nth 3 (nth x lest))) 4)
 	     (= (atoi (nth 5 (nth x lest))) 0)
 	)
@@ -101,8 +110,8 @@
 	(while (< i div)
 	  (command "donut"
 		   "0.0"
-		   "1.0"
-		   (list (+ x1 1)
+		   dd
+		   (list (+ x1 dc)
 			 (+ (* y1 (float (/ i div)))
 			    (* y2 (float (/ (- div i) div)))
 			 )
@@ -111,8 +120,8 @@
 	  )
 	  (command "donut"
 		   "0.0"
-		   "1.0"
-		   (list (- x2 1)
+		   dd
+		   (list (- x2 dc)
 			 (+ (* y1 (float (/ i div)))
 			    (* y2 (float (/ (- div i) div)))
 			 )
@@ -132,8 +141,8 @@
 	(while (< j div1)
 	  (command "donut"
 		   "0.0"
-		   "1.0"
-		   (list (+ x1 1)
+		   dd
+		   (list (+ x1 dc)
 			 (+ (* y1 (float (/ j div1)))
 			    (* y2 (float (/ (- div1 j) div1)))
 			 )
@@ -142,8 +151,8 @@
 	  )
 	  (command "donut"
 		   "0.0"
-		   "1.0"
-		   (list (- x2 1)
+		   dd
+		   (list (- x2 dc)
 			 (+ (* y1 (float (/ j div1)))
 			    (* y2 (float (/ (- div1 j) div1)))
 			 )
@@ -154,14 +163,14 @@
 	)
 	(if (/= (rem div1 2) 0)
 	  (progn
-	    (command "circle" (list (+ x1 1) (/ (+ y1 y2) 2)) "0.5" "")
-	    (command "circle" (list (- x2 1) (/ (+ y1 y2) 2)) "0.5" "")
+	    (command "circle" (list (+ x1 dc) (/ (+ y1 y2) 2)) (/ dd 2) "")
+	    (command "circle" (list (- x2 dc) (/ (+ y1 y2) 2)) (/ dd 2) "")
 	  )
 	)
 	(if (= (rem div1 2) 0)
 	  (progn
-	    (command "circle" (list (/ (+ x1 x2) 2) (+ y1 1)) "0.5" "")
-	    (command "circle" (list (/ (+ x1 x2) 2) (- y2 1)) "0.5" "")
+	    (command "circle" (list (/ (+ x1 x2) 2) (+ y1 dc)) (/ dd 2) "")
+	    (command "circle" (list (/ (+ x1 x2) 2) (- y2 dc)) (/ dd 2) "")
 	  )
 	)
       )
@@ -175,8 +184,8 @@
 	(while (< k div2)
 	  (command "donut"
 		   "0.0"
-		   "1.0"
-		   (list (+ x1 1)
+		   dd
+		   (list (+ x1 dc)
 			 (+ (* y1 (float (/ k div2)))
 			    (* y2 (float (/ (- div2 k) div2)))
 			 )
@@ -185,8 +194,8 @@
 	  )
 	  (command "donut"
 		   "0.0"
-		   "1.0"
-		   (list (- x2 1)
+		   dd
+		   (list (- x2 dc)
 			 (+ (* y1 (float (/ k div2)))
 			    (* y2 (float (/ (- div2 k) div2)))
 			 )
@@ -197,32 +206,32 @@
 	)
 	(if (= (rem div2 2) 0)
 	  (progn
-	    (command "circle" (list (/ (+ x1 x2) 2) (+ y1 1)) "0.5" "")
-	    (command "circle" (list (/ (+ x1 x2) 2) (- y2 1)) "0.5" "")
-	    (command "circle" (list (+ x1 1) (/ (+ y1 y2) 2)) "0.5" "")
-	    (command "circle" (list (- x2 1) (/ (+ y1 y2) 2)) "0.5" "")
+	    (command "circle" (list (/ (+ x1 x2) 2) (+ y1 dc)) (/ dd 2) "")
+	    (command "circle" (list (/ (+ x1 x2) 2) (- y2 dc)) (/ dd 2) "")
+	    (command "circle" (list (+ x1 dc) (/ (+ y1 y2) 2)) (/ dd 2) "")
+	    (command "circle" (list (- x2 dc) (/ (+ y1 y2) 2)) (/ dd 2) "")
 	  )
 	)
 	(if (/= (rem div2 2) 0)
 	  (progn
 	    (command "circle"
-		     (list (+ (* x1 0.25) (* x2 0.75)) (+ y1 1))
-		     "0.5"
+		     (list (+ (* x1 0.25) (* x2 0.75)) (+ y1 dc))
+		     (/ dd 2)
 		     ""
 	    )
 	    (command "circle"
-		     (list (+ (* x1 0.75) (* x2 0.25)) (+ y1 1))
-		     "0.5"
+		     (list (+ (* x1 0.75) (* x2 0.25)) (+ y1 dc))
+		     (/ dd 2)
 		     ""
 	    )
 	    (command "circle"
-		     (list (+ (* x1 0.25) (* x2 0.75)) (- y2 1))
-		     "0.5"
+		     (list (+ (* x1 0.25) (* x2 0.75)) (- y2 dc))
+		     (/ dd 2)
 		     ""
 	    )
 	    (command "circle"
-		     (list (+ (* x1 0.75) (* x2 0.25)) (- y2 1))
-		     "0.5"
+		     (list (+ (* x1 0.75) (* x2 0.25)) (- y2 dc))
+		     (/ dd 2)
 		     ""
 	    )
 	  )
@@ -238,8 +247,8 @@
 	(while (< g div3)
 	  (command "donut"
 		   "0.0"
-		   "1.0"
-		   (list (+ x1 1)
+		   dd
+		   (list (+ x1 dc)
 			 (+ (* y1 (float (/ k div2)))
 			    (* y2 (float (/ (- div2 k) div2)))
 			 )
@@ -248,8 +257,8 @@
 	  )
 	  (command "donut"
 		   "0.0"
-		   "1.0"
-		   (list (- x2 1)
+		   dd
+		   (list (- x2 dc)
 			 (+ (* y1 (float (/ k div2)))
 			    (* y2 (float (/ (- div2 k) div2)))
 			 )
@@ -260,38 +269,39 @@
 	)
 	(if (= (rem div2 2) 0)
 	  (progn
-	    (command "circle" (list (/ (+ x1 x2) 2) (+ y1 1)) "0.5" "")
-	    (command "circle" (list (/ (+ x1 x2) 2) (- y2 1)) "0.5" "")
-	    (command "circle" (list (+ x1 1) (/ (+ y1 y2) 2)) "0.5" "")
-	    (command "circle" (list (- x2 1) (/ (+ y1 y2) 2)) "0.5" "")
+	    (command "circle" (list (/ (+ x1 x2) 2) (+ y1 dc)) (/ dd 2) "")
+	    (command "circle" (list (/ (+ x1 x2) 2) (- y2 dc)) (/ dd 2) "")
+	    (command "circle" (list (+ x1 dc) (/ (+ y1 y2) 2)) (/ dd 2) "")
+	    (command "circle" (list (- x2 dc) (/ (+ y1 y2) 2)) (/ dd 2) "")
 	  )
 	)
 	(if (/= (rem div2 2) 0)
 	  (progn
 	    (command "circle"
-		     (list (+ (* x1 0.25) (* x2 0.75)) (+ y1 1))
-		     "0.5"
+		     (list (+ (* x1 0.25) (* x2 0.75)) (+ y1 dc))
+		     (/ dd 2)
 		     ""
 	    )
 	    (command "circle"
-		     (list (+ (* x1 0.75) (* x2 0.25)) (+ y1 1))
-		     "0.5"
+		     (list (+ (* x1 0.75) (* x2 0.25)) (+ y1 dc))
+		     (/ dd 2)
 		     ""
 	    )
 	    (command "circle"
-		     (list (+ (* x1 0.25) (* x2 0.75)) (- y2 1))
-		     "0.5"
+		     (list (+ (* x1 0.25) (* x2 0.75)) (- y2 dc))
+		     (/ dd 2)
 		     ""
 	    )
 	    (command "circle"
-		     (list (+ (* x1 0.75) (* x2 0.25)) (- y2 1))
-		     "0.5"
+		     (list (+ (* x1 0.75) (* x2 0.25)) (- y2 dc))
+		     (/ dd 2)
 		     ""
 	    )
 	  )
 	)
       )
     )
+    
     (setq x (+ x 1))
 	(command ".zoom" "e" "")
   	(command ".qsave")

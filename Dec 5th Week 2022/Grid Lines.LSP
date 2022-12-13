@@ -1,6 +1,7 @@
 (defun c:gl (/)
   ;;(princ "Grid Line drawing")
   (setvar "osmode" 0)
+ ;; (setvar "INSUNITS" 4)
   (setq wall (entsel "Select a wall line"))
   (setq width (getint "What is the wall thickness"))
   (setq entlist (entget (car wall)))
@@ -34,15 +35,16 @@
   (setq sp (qsort_x sp))
   (princ "After qsort along x")
   ;;(princ (qsort sp))
-  (repeat (setq x (- (length sp) 2))
+  (repeat (setq x (- (length sp) 1))
+    (repeat (setq x1 (- (length sp) 2))
     (if
-      (or (= (- (nth 1 (nth (1+ x) sp)) (nth 1 (nth x sp))) width)
-	  (= (- (nth 1 (nth (1+ x) sp)) (nth 1 (nth x sp))) (- width))
+      (or (= (- (nth 1 (nth x sp)) (nth 1 (nth x1 sp))) width)
+	  (= (- (nth 1 (nth x sp)) (nth 1 (nth x1 sp))) (- width))
       )
        (progn
 	 (command "line"
-		  (mapcar '+ (nth x sp) (list 1000 (/ width 2) 0))
-		  (mapcar '+ (nth x sp) (list -1000 (/ width 2) 0))
+		  (mapcar '+ (nth x sp) (list 100 (/ width 2) 0))
+		  (mapcar '+ (nth x sp) (list -100 (/ width 2) 0))
 		  ""
 	 )
 	 (command ".chprop"
@@ -50,41 +52,52 @@
 		  ""
 		  "Color"
 		  "TrueColor"
-		  "255,0,255"
+		  "128,0,128"
 		  ""
 	 )
 	 (princ "Grid line drawn")
        )
     )
-    (if	(or (= (- (car (nth (1+ x) sp)) (car (nth x sp))) width)
-	    (= (- (car (nth (1+ x) sp)) (car (nth x sp))) (- width))
+    (if	(or (= (- (car (nth x sp)) (car (nth x1 sp))) width)
+	    (= (- (car (nth x sp)) (car (nth x1 sp))) (- width))
 	)
       (progn
+	(if (< (car (nth x sp)) (car (nth x1 sp)))
 	(command "line"
-		 (mapcar '+ (nth x sp) (list (/ width 2) 1000 0))
-		 (mapcar '+ (nth x sp) (list (/ width 2) -1000 0))
+		 (mapcar '+ (nth x sp) (list (/ width 2) 100 0))
+		 (mapcar '+ (nth x sp) (list (/ width 2) -100 0))
 		 ""
 	)
-	(command ".chprop" (entlast) "" "Color" "TrueColor" "255,0,255" "")
+	  (command "line"
+		 (mapcar '+ (nth x1 sp) (list (/ width 2) 100 0))
+		 (mapcar '+ (nth x1 sp) (list (/ width 2) -100 0))
+		 ""
+	))
+	(command ".chprop" (entlast) "" "Color" "TrueColor" "128,128,128" "")
 	(princ "Grid line drawn")
       )
     )
+      (setq x1 (1- x1))
+      )
     (princ (nth x sp))
     (princ "\n")
     (setq x (1- x))
   )
   (setq sp (qsort_y sp))
   (princ "After qsort along y")
-  (setq y (- (length sp) 2))
+  (setq y (- (length sp) 3))
    (while (> y 0)
     (if
-      (or (= (- (nth 1 (nth (1+ y) sp)) (nth 1 (nth y sp))) width)
+      (or (or (= (- (nth 1 (nth (1+ y) sp)) (nth 1 (nth y sp))) width)
 	  (= (- (nth 1 (nth (1+ y) sp)) (nth 1 (nth y sp))) (- width))
       )
+	  (or (= (- (nth 1 (nth (+ y 2) sp)) (nth 1 (nth y sp))) width)
+	  (= (- (nth 1 (nth (+ y 2) sp)) (nth 1 (nth y sp))) (- width))
+      ))
        (progn
 	 (command "line"
-		  (mapcar '+ (nth y sp) (list 1000 (/ width 2) 0))
-		  (mapcar '+ (nth y sp) (list -1000 (/ width 2) 0))
+		  (mapcar '+ (nth y sp) (list 100 (/ width 2) 0))
+		  (mapcar '+ (nth y sp) (list -100 (/ width 2) 0))
 		  ""
 	 )
 	 (command ".chprop"
@@ -98,13 +111,16 @@
 	 (princ "Grid line drawn")
        )
     )
-    (if	(or (= (- (car (nth (1+ y) sp)) (car (nth y sp))) width)
+    (if	(or (or (= (- (car (nth (1+ y) sp)) (car (nth y sp))) width)
 	    (= (- (car (nth (1+ y) sp)) (car (nth y sp))) (- width))
 	)
+	   (or (= (- (car (nth (+ y 2) sp)) (car (nth y sp))) width)
+	    (= (- (car (nth (+ y 2) sp)) (car (nth y sp))) (- width))
+	)) 
       (progn
 	(command "line"
-		 (mapcar '+ (nth y sp) (list (/ width 2) 1000 0))
-		 (mapcar '+ (nth y sp) (list (/ width 2) -1000 0))
+		 (mapcar '+ (nth y sp) (list (/ width 2) 100 0))
+		 (mapcar '+ (nth y sp) (list (/ width 2) -100 0))
 		 ""
 	)
 	(command ".chprop" (entlast) "" "Color" "TrueColor" "128,128,128" "")

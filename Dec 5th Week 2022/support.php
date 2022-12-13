@@ -17,6 +17,13 @@ iframe{
 </style>
 </head>
 <body>
+<div class="topnav">
+  <img src="logo.png" width="200px" height="50px" align="left"></img>
+  <u1>
+  <li> <a href="support.php">Support</a></li>
+  <li> <a class="active" href="index.php">Home</a></li>
+  </ul>
+</div>
 <p>
     Mail us on :qwikdraft@gmail.com
 </p>
