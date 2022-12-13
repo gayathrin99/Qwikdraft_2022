@@ -42,17 +42,24 @@
 	  (= (- (nth 1 (nth x sp)) (nth 1 (nth x1 sp))) (- width))
       )
        (progn
+	 (if (< (nth 1 (nth x sp)) (nth 1 (nth x1 sp))) 
 	 (command "line"
 		  (mapcar '+ (nth x sp) (list 100 (/ width 2) 0))
 		  (mapcar '+ (nth x sp) (list -100 (/ width 2) 0))
 		  ""
 	 )
+	  (command "line"
+		  (mapcar '+ (nth x1 sp) (list 100 (/ width 2) 0))
+		  (mapcar '+ (nth x1 sp) (list -100 (/ width 2) 0))
+		  ""
+	 )
+	   )
 	 (command ".chprop"
 		  (entlast)
 		  ""
 		  "Color"
 		  "TrueColor"
-		  "128,0,128"
+		  "128,128,128"
 		  ""
 	 )
 	 (princ "Grid line drawn")
@@ -85,21 +92,25 @@
   )
   (setq sp (qsort_y sp))
   (princ "After qsort along y")
-  (setq y (- (length sp) 3))
-   (while (> y 0)
+  (repeat (setq y (- (length sp) 1))
+    (repeat (setq y1 (- (length sp) 2))
     (if
-      (or (or (= (- (nth 1 (nth (1+ y) sp)) (nth 1 (nth y sp))) width)
-	  (= (- (nth 1 (nth (1+ y) sp)) (nth 1 (nth y sp))) (- width))
+      (or (= (- (nth 1 (nth y sp)) (nth 1 (nth y1 sp))) width)
+	  (= (- (nth 1 (nth y sp)) (nth 1 (nth y1 sp))) (- width))
       )
-	  (or (= (- (nth 1 (nth (+ y 2) sp)) (nth 1 (nth y sp))) width)
-	  (= (- (nth 1 (nth (+ y 2) sp)) (nth 1 (nth y sp))) (- width))
-      ))
-       (progn
+      (progn
+	(if (< (nth 1 (nth y sp)) (nth 1 (nth y1 sp)))
 	 (command "line"
 		  (mapcar '+ (nth y sp) (list 100 (/ width 2) 0))
 		  (mapcar '+ (nth y sp) (list -100 (/ width 2) 0))
 		  ""
 	 )
+	  (command "line"
+		  (mapcar '+ (nth y1 sp) (list 100 (/ width 2) 0))
+		  (mapcar '+ (nth y1 sp) (list -100 (/ width 2) 0))
+		  ""
+	 )
+	  )
 	 (command ".chprop"
 		  (entlast)
 		  ""
@@ -111,22 +122,28 @@
 	 (princ "Grid line drawn")
        )
     )
-    (if	(or (or (= (- (car (nth (1+ y) sp)) (car (nth y sp))) width)
-	    (= (- (car (nth (1+ y) sp)) (car (nth y sp))) (- width))
-	)
-	   (or (= (- (car (nth (+ y 2) sp)) (car (nth y sp))) width)
-	    (= (- (car (nth (+ y 2) sp)) (car (nth y sp))) (- width))
-	)) 
+    (if	(or (= (- (car (nth y sp)) (car (nth y1 sp))) width)
+	    (= (- (car (nth y sp)) (car (nth y1 sp))) (- width))
+	) 
       (progn
+	(if (< (car (nth y sp)) (car (nth y1 sp)))
 	(command "line"
 		 (mapcar '+ (nth y sp) (list (/ width 2) 100 0))
 		 (mapcar '+ (nth y sp) (list (/ width 2) -100 0))
 		 ""
 	)
+	  (command "line"
+		 (mapcar '+ (nth y1 sp) (list (/ width 2) 100 0))
+		 (mapcar '+ (nth y1 sp) (list (/ width 2) -100 0))
+		 ""
+	)
+	  )
 	(command ".chprop" (entlast) "" "Color" "TrueColor" "128,128,128" "")
 	(princ "Grid line drawn")
       )
     )
+      (setq y1 (1- y1))
+      )
     (princ (nth y sp))
     (princ "\n")
     (setq y (1- y))
@@ -139,9 +156,9 @@
     ((null L) nil)
     (t
      (append
-       (qsort (list<_x (car L) (cdr L)))
+       (qsort_x (list<_x (car L) (cdr L)))
        (cons (car L) nil)
-       (qsort (list>=_x (car L) (cdr L)))
+       (qsort_x (list>=_x (car L) (cdr L)))
      )
     )
   )
@@ -167,9 +184,9 @@
     ((null L) nil)
     (t
      (append
-       (qsort (list<_y (car L) (cdr L)))
+       (qsort_y (list<_y (car L) (cdr L)))
        (cons (car L) nil)
-       (qsort (list>=_y (car L) (cdr L)))
+       (qsort_y (list>=_y (car L) (cdr L)))
      )
     )
   )

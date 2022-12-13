@@ -101,7 +101,36 @@ a:hover{
         <input type="submit" name="upload" value="Submit" id="submitbutton" style="height:50px; width: 100px;background-color:Orange;font-size:20px; border:none" onclick="show()"/>
         <br>
     </form>
-    <br>   
+    <br>
+    <script>
+      const div = document.getElementbyId("payment");
+  const btn = document.getElementbyId("submitbutton");
+  btn.onclick = function () {
+    if (targetDiv.style.display !== "none"){
+      targetDiv.style.display = "none";
+    } else {
+      targetDiv.style.display = "block";
+    }
+    };
+      </script>
+    <button id="pay_button" onclick="paymentfunc()"> I want to pay </button>
+    <div id="payment"> Pay Rs.500 for drawings for the software
+    <br>
+            <img src="gpayscan.jpeg" height="300" width="300" align="middle">
+<br>
+</div>
+<script>
+  alert('Hello world!')
+  const targetDiv = document.getElementbyId("payment");
+  const btn = document.getElementbyId("pay_button");
+  btn.onclick = function paymentfunc() {
+    if (targetDiv.style.display !== "none"){
+      targetDiv.style.display = "none";
+    } else {
+      targetDiv.style.display = "block";
+    }
+    };
+    </script>
 <?php
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -146,7 +175,6 @@ if (isset($_POST["upload"])){
           ';
           echo '<a href="/Footing Details.zip" download="Footing details"> Download </a>';
           $message = stripslashes($message);
-         // $file = "/home/g6bau7mbk3r2/public_html/Column Details.zip";
          $headers="Content-type: text/html; charset=UTF-8"."\r\n";
          $headers .= "MIME-Version: 1.0"."\r\n";
          $headers .= "From: qwikdraft@gmail.com". "\r\n" . "CC: qwikdraft@gmail.com";
