@@ -1,6 +1,5 @@
 <html>
     <head>
-        <h1> Support </h1>
         <style>
             body{
    font-family: 'Roboto',sans-serif, cursive;
@@ -14,7 +13,28 @@ iframe{
     height: 500px;
     align: center;
 }
+.topnav{
+  background-color: #333;
+  overflow: hidden;
+}
+.topnav a{
+  float: right;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+.topnav a:hover{
+  background-color: #ddd;
+  color: black;
+}
+.topnav a.active{
+  background-color: #04AA6D;
+  color: white;
+}
 </style>
+<h1> Support </h1>
 </head>
 <body>
 <div class="topnav">

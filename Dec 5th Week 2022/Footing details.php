@@ -102,32 +102,36 @@ a:hover{
         <br>
     </form>
     <br>
+    <div id="youtube_video">  
+    <p align="center">  
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/y1l-Zpfc0_k" title="Qwikdraft - Beam Details" frameborder="0" allowfullscreen></iframe>
+            </p>
+            <br>
+          </div>
     <script>
-      const div = document.getElementbyId("payment");
-  const btn = document.getElementbyId("submitbutton");
-  btn.onclick = function () {
-    if (targetDiv.style.display !== "none"){
-      targetDiv.style.display = "none";
+      const div = document.getElementById("youtube_video");
+  const bt = document.getElementById("submitbutton");
+  bt.onclick = function show() {
+    if (div.style.display === "none"){
+      div.style.display = "block";
     } else {
-      targetDiv.style.display = "block";
+      div.style.display = "none";
     }
     };
       </script>
     <button id="pay_button" onclick="paymentfunc()"> I want to pay </button>
-    <div id="payment"> Pay Rs.500 for drawings for the software
+    <div id="payment" style="display:none;"> Pay Rs.500 for drawings for the software
     <br>
             <img src="gpayscan.jpeg" height="300" width="300" align="middle">
 <br>
 </div>
 <script>
-  alert('Hello world!')
-  const targetDiv = document.getElementbyId("payment");
-  const btn = document.getElementbyId("pay_button");
-  btn.onclick = function paymentfunc() {
-    if (targetDiv.style.display !== "none"){
-      targetDiv.style.display = "none";
-    } else {
+  const targetDiv = document.getElementById("payment");
+  function paymentfunc() {
+    if (targetDiv.style.display === "none"){
       targetDiv.style.display = "block";
+    } else {
+      targetDiv.style.display = "none";
     }
     };
     </script>
@@ -148,9 +152,9 @@ if (isset($_POST["upload"])){
     if(!empty($email_address))
 {
     {
-        echo $email_address;
-        echo "<br>";
-        echo "We have recieved your mail id";
+        //echo $email_address;
+        //echo "<br>";
+        //echo "We have recieved your mail id";
         echo "<br>";
         $host="localhost";
         $username="gayathri_qwikdraft";

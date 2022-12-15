@@ -101,7 +101,42 @@ a:hover{
         <input type="submit" name="upload" value="Submit" id="submitbutton" style="height:50px; width: 100px;background-color:Orange;font-size:20px; border:none" onclick="show()"/>
         <br>
     </form>
-    <br>   
+    <br>
+    <div id="youtube_video">
+    <p align="center">  
+          <iframe width="560" height="315" src="https://www.youtube.com/watch?v=y1l-Zpfc0_k" title="Qwikdraft - Beam Details" frameborder="0" allowfullscreen>Demo video</iframe>
+            </p>
+            <br>
+          </div>
+          <script>
+    const div1 = document.getElementById("youtube_video");
+  const bt1 = document.getElementById("submitbutton");
+  bt1.onclick = function show() {
+    if (div.style.display === "none"){
+      div.style.display = "block";
+    } else {
+      div.style.display = "none";
+    }
+    };
+      </script>
+    <br> 
+    <button id="pay_button" onclick="paymentfunc()"> I want to pay </button>
+    <div id="payment" style="display:none;"> Pay Rs.500 for drawings for the software
+    <br>
+            <img src="gpayscan.jpeg" height="300" width="300" align="middle">
+<br>
+</div>
+<script>
+  alert('Hello world!')
+  const targetDiv = document.getElementById("payment");
+  function paymentfunc() {
+    if (targetDiv.style.display === "none"){
+      targetDiv.style.display = "block";
+    } else {
+      targetDiv.style.display = "none";
+    }
+    };
+    </script>  
 <?php
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
