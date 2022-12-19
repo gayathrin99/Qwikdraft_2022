@@ -120,7 +120,7 @@ a:hover{
     };
       </script>
     <button id="pay_button" onclick="paymentfunc()"> I want to pay </button>
-    <div id="payment" style="display:none;"> Pay Rs.500 for drawings for the software
+    <div id="payment" style="display:none;"> Pay Rs.500 for drawings for the software and we will return it if you aren't satissfied
     <br>
             <img src="gpayscan.jpeg" height="300" width="300" align="middle">
 <br>
