@@ -178,7 +178,7 @@ if (isset($_POST["upload"])){
           </body>
           </html>
           ';
-          echo '<a href="/Beam Details.zip" download="Beam details"> Download </a>';
+          echo '<a href="/Beam_Details.zip" download="Beam details"> Download </a>';
           $message = stripslashes($message);
          // $file = "/home/g6bau7mbk3r2/public_html/Column Details.zip";
          $headers="Content-type: text/html; charset=UTF-8"."\r\n";
