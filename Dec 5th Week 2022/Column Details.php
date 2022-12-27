@@ -147,9 +147,6 @@ use PHPMailer\PHPMailer\Exception;
 require "/home/g6bau7mbk3r2/public_html/PHPMailer-master/src/PHPMailer.php";
 require "/home/g6bau7mbk3r2/public_html/PHPMailer-master/src/Exception.php";
 require "/home/g6bau7mbk3r2/public_html/PHPMailer-master/src/SMTP.php";
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 if (isset($_POST["upload"])){
     $email_address = $_POST["emailid"];
     $mail = new PHPMailer(true);
