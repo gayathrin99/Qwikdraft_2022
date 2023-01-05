@@ -103,6 +103,8 @@ a:hover{
 <br>
 <a href ="/Grid Lines.php"> Grid Lines </a>
 <br>
+<a href ="/Architectural drawings.php"> Architectural drawings </a>
+<br>
 <?php
 // import dependencies (using composer's autoload)
 // if not using Composer, you'll want to require the
