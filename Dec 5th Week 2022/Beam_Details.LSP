@@ -222,7 +222,7 @@
 		  ""
 		)
 		(command
-		  "dimlin"
+		  "dimlinear"
 		  (mapcar '+
 			  b1
 			  (list 0 (* 2 c) 0)
@@ -242,6 +242,7 @@
 			  (list (- (qd:rounddown (* 0.15 span1) 3)) 0 0)
 		  )
 		  ""
+""
 		)
 		(command-s)
 		(command
@@ -262,7 +263,7 @@
 		  ""
 		)
 		(command
-		  "dimlin"
+		  "dimlinear"
 		  (mapcar
 		    '+
 		    b1
@@ -283,6 +284,7 @@
 			  (list (- (qd:rounddown (* 0.15 span2) 3)) 0 0)
 		  )
 		  ""
+""
 		)
 	      )
 
