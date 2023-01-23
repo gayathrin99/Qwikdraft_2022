@@ -90,8 +90,12 @@ a:hover{
 </div>
 <br>
 <br>
-  <p style="font-size:30px"><strong>Click the below links for the software!</strong></p>
+  <p style="font-size:60px"><strong>Click the below links for the software!</strong></p>
   <br>
+  <p style="font-size:30px">To generate automated Civil design according to Indian standards!</p>
+  <br>
+  <a href="/Design.php"> Design </a>
+<br>
   <br>
   <p style="font-size:30px">To generate automated Civil Structural drawings</p>
   <br>
@@ -100,6 +104,8 @@ a:hover{
 <a href ="/Beam Details.php"> Beam Details </a>
 <br>
 <a href ="/Footing Details.php"> Footing Details </a>
+<br>
+<a href ="/Slab Details.php"> Slab Details </a>
 <br>
 <a href ="/Grid Lines.php"> Grid Lines </a>
 <br>

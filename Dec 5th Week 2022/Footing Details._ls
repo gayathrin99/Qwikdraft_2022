@@ -23,14 +23,14 @@
   
   (setq letf (LM:readcsv file))
   
-  (princ letf)
+  ;;(princ letf)
   (setq layername1 "Footing")
   (setq layercolor1 "255")
   (setq layercolor2 "6")
-  (command "_.INSERT" "E:/purvaja/WDBM/LISP/QWIKDRAFT/AUTOLISP/Website/Drafting/Footing reference.dwg" '(0 0 0) "1" "1" "" "")
-  (command-s)
   (setq a 1)
-  (setq c (getint "What is the cover for steel?"))
+  (setq c (getint "What is the cover for steel?(in mm)"))
+  (setq drawing (getfiled "Select the reference drawing from the downloaded \"Footing Details\" file" "" "dwg" 16))
+  (setq textheight (getint "What is the text height? (in mm)"))
   (while (< a (length letf))
     (setq l (atoi (nth 0 (nth a letf))))
     (setq b (atoi (nth 1 (nth a letf))))
@@ -211,6 +211,60 @@
 	     (mapcar '+ pt3 '(100 100 0))
 	     ""
     )
+    (command "dimlinear"
+	     pt1 pt4
+	     (mapcar '+ pt1 (list 0 -1000 0))
+	     ""
+	     )
+    (command "dimlinear"
+	     pt4 pt3
+	     (mapcar '+ pt4 (list 0 1000 0))
+	     "")
+    (command "mtext"
+	     (mapcar '+ pt1 (list 0 (* textheight -8) 0))
+	     "_justify" "MC"
+	     "_Height"
+	     textheight
+	     (mapcar '+ pt2 (list 0 (* textheight -4) 0))
+	     (strcat "FOOTING - F" (itoa a))
+	     ""
+    )
+    (command "mtext"
+	     (mapcar '+ pt1 (list 0 (* textheight -12) 0))
+	     "_justify" "MC"
+	     "_Height"
+	     textheight
+	     (mapcar '+ pt2 (list 0 (* textheight -6) 0))
+	     (strcat "Top steel along " (nth 0 (nth a letf)) " mm side is " (nth 3 (nth a letf)) "mm at " (nth 4 (nth a letf)) " mm spacing")
+	     ""
+    )
+    (command "mtext"
+	     (mapcar '+ pt1 (list 0 (* textheight -16) 0))
+	     "_justify" "MC"
+	     "_Height"
+	     textheight
+	     (mapcar '+ pt2 (list 0 (* textheight -8) 0))
+	     (strcat "Bottom steel along " (nth 0 (nth a letf)) " mm side is " (nth 5 (nth a letf)) "mm at " (nth 6 (nth a letf)) " mm spacing")
+	     ""
+    )
+    (command "mtext"
+	     (mapcar '+ pt1 (list 0 (* textheight -22) 0))
+	     "_justify" "MC"
+	     "_Height"
+	     textheight
+	     (mapcar '+ pt2 (list 0 (* textheight -12) 0))
+	     (strcat "Top steel along " (nth 1 (nth a letf)) " mm side is " (nth 7 (nth a letf)) "mm at " (nth 8 (nth a letf)) " mm spacing")
+	     ""
+    )
+    (command "mtext"
+	     (mapcar '+ pt1 (list 0 (* textheight -28) 0))
+	     "_justify" "MC"
+	     "_Height"
+	     textheight
+	     (mapcar '+ pt2 (list 0 (* textheight -16) 0))
+	     (strcat "Bottom steel along " (nth 1 (nth a letf)) " mm side is " (nth 9 (nth a letf)) "mm at " (nth 10 (nth a letf)) " mm spacing")
+	     ""
+    )
     (command "chprop"
 	     (entlast)
 	     ""
@@ -223,12 +277,13 @@
     )
     (command "chprop" "" "LT" "DASHED" "" "S" "100" "" "Color" "White"
 	     "")
-    (command "line" (mapcar '+ pt1 (list 0 (* d -10) 0)) (mapcar '+ pt1 (list 0 (* d -10) 0) (list 0 d 0)) "")
-    (command "line" (mapcar '+ pt1 (list 0 (* d -10) 0) (list 0 d 0)) (mapcar '+ pt1 (list (/ l 2) (* d -10) 0) (list -100 d 0)) "")
+    (command "line" (mapcar '+ pt1 (list 0 (* d -10) 0)) (mapcar '+ pt1 (list 0 (* d -9) 0)) "")
+    (command "line" (mapcar '+ pt1 (list 0 (* d -9) 0)) (mapcar '+ pt1 (list (/ l 2) (* d -10) 0) (list -100 d 0)) "")
     (command "line" (mapcar '+ pt1 (list (/ l 2) (* d -10) 0) (list -100 d 0)) (mapcar '+ pt1 (list (/ l 2) (* d -5) 0 ) (list -100 d 0)) "")
     (command "line" (mapcar '+ pt1 (list 0 (* d -10) 0) (list (+ (/ l 2) 100) d 0)) (mapcar '+ pt1 (list 0 (* d -10) 0) (list l d 0)) "")
-    (command "line" (mapcar '+ pt1 (list 0 (* d -10) 0) (list l d 0)) (mapcar '+ pt1 (list 0 (* d -5) 0) (list l d 0)) "")
-    (command "line" (mapcar '+ pt1 (list l (* d -10) 0)) (mapcar '+ pt1 (list 0 (* d -10) 0) (list l d 0)) "")
+    (command "line" (mapcar '+ pt1 (list 100 (* d -10) 0) (list (/ l 2) d 0)) (mapcar '+ pt1 (list 100 (* d -5) 0) (list (/ l 2) d 0)) "")
+    (command "line" (mapcar '+ pt1 (list l (* d -10) 0)) (mapcar '+ pt1 (list 0 (* d -9) 0) (list l 0 0)) "")
+    (command "_.INSERT" drawing (mapcar '+ pt1 (list (/ l 2) (* d -5) 0) (list -100 d 0)) "1.5" "1.5" "" "")
     (command
       "rectang"
       "f"
@@ -241,7 +296,43 @@
 	      '(100 0 0.0)
       )
       ""
-    )    
+    )
+    (command "line" (mapcar '+ pt1 (list 0 (* d -10) 0) (list c c 0)) (mapcar '+ pt1 (list 0 (* d -9) 0) (list c (- c) 0)) "")
+    (command "chprop" (entlast) "" "LTScale" "10" "" "Color" "6" "")
+    (command "line" (mapcar '+ pt1 (list 0 (* d -10) 0) (list c c 0)) (mapcar '+ pt1 (list l (* d -10) 0) (list c c 0)) "")
+    (command "chprop" (entlast) "" "LTScale" "10" "" "Color" "6" "")
+    (command "line" (mapcar '+ pt1 (list 0 (* d -9) 0) (list c (- c) 0)) (mapcar '+ pt1 (list l (* d -9) 0) (list (- c) (- c) 0)) "")
+    (command "chprop" (entlast) "" "LTScale" "10" "" "Color" "6" "")
+    (command "line" (mapcar '+ pt1 (list (/ l 2) (* d -10) 0) (list -100 d 0) (list c 0 0)) (mapcar '+ pt1 (list (/ l 2) (* d -5) 0 ) (list -100 d 0) (list c c 0)) "")
+    (command "chprop" (entlast) "" "LTScale" "10" "" "Color" "6" "")
+    (command "line" (mapcar '+ pt1 (list 100 (* d -10) 0) (list (/ l 2) d 0) (list (- c) 0 0)) (mapcar '+ pt1 (list 100 (* d -5) 0) (list (/ l 2) d 0) (list (- c) 0 0)) "")
+    (command "chprop" (entlast) "" "LTScale" "10"  "" "Color" "6" "")
+    (command "line" (mapcar '+ pt1 (list l (* d -10) 0) (list (- c) c 0)) (mapcar '+ pt1 (list 0 (* d -9) 0) (list l 0 0) (list (- c) (- c) 0)) "")
+    (command "chprop" (entlast) "" "LTScale" "10" "" "Color" "6" "")
+    (setq i 0)
+    (setq dd (/ (atoi (nth 2 (nth a letf))) 10))
+    (setq dc (+ (/ dd 2) c))
+    (while (< (* i (atoi (nth 4 (nth a letf)))) (- (atoi (nth 1 (nth a letf)))(* 2 dd)))
+      (progn
+	(command "donut" "0.0" dd (mapcar '+ pt1 (list 0 (* d -10) 0) (list dc dc 0) (list (* i (atoi (nth 4 (nth a letf)))) 0 0)) "")
+	(command "donut" "0.0" dd (mapcar '+ pt1 (list 0 (* d -9) 0) (list dc (- dc) 0) (list (* i (atoi (nth 4 (nth a letf)))) 0 0)) "")
+	(setq i (1+ i))
+	)
+      )
+    (setq j 0)
+    (while (< (* j 150) (* d 5))
+      (command "line" (mapcar '+ pt1 (list (+ (/ l 2) -100) (* d -9) 0) (list 0 (* j 150) 0) (list (/ c 2) 0 0))
+	       (mapcar '+ pt1 (list (+ (/ l 2) 100) (* d -9) 0) (list 0 (* j 150) 0) (list (/ (- c) 2) 0 0))
+	       "")
+      (setq j (1+ j))
+      )
+    
     (setq a (1+ a))
   )
+  (if (> 20221230 (getvar "cdate"))
+    (progn
+      (princ "\n*** This version of Qwikdraft software has expired***")
+      (exit)
+      )
+    )
 )

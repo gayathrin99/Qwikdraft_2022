@@ -53,8 +53,8 @@
 	     (nth 0 (nth x lest))
 	     ""
     )
-    (command "donut" "0.0" "1.0" (mapcar '+ pt1 '(0 (* textheight -5) 0)) "")
-    (command "circle" (mapcar '+ pt1 '(0 (* textheight -5) 0)) "0.5" "")
+    (command "donut" "0.0" "1.0" (mapcar '+ pt1 (list 0 (* textheight -5) 0)) "")
+    (command "circle" (mapcar '+ pt1 (list 0 (* textheight -5) 0)) "0.5" "")
     (command "mtext"
 	     (mapcar '+ pt1 (list 1 (* textheight -5) 0))
 	     "Height"
@@ -71,12 +71,12 @@
 	     (strcat (nth 5 (nth x lest)) "-#" (nth 6 (nth x lest)))
 	     ""
     )
-    (command "mtext"
-	     (mapcar '+ pt2 '(5 +10 0))
-	     "Height"
-	     textheight
-	     (mapcar '+ pt2 '(20 0 0))
-	     (strcat (nth 9 (nth x lest)) "-" (nth 10 (nth x lest)))
+    (command "_.mtext"
+	     (mapcar '+ pt1 '(0 +10 0))
+	     "_justify" "MC"
+	     "_Height" textheight
+	     (mapcar '+ pt2 (list 0 (+ -10 (- textheight)) 0))
+	     (strcat (nth 3 (nth x lest)) "-" (nth 4 (nth x lest)))
 	     ""
     )
     (command ".chprop" (entlast) "" "la" layername1 "")
@@ -91,10 +91,7 @@
 	     ""
     )
     ;;dd is donut diameter
-
-
-    
-    (setq dd (/ len 10))
+    (setq dd (/ len 10.0))
     (setq dc (+ (/ dd 2) c))
     (command ".chprop" (entlast) "" "la" layername2 "")
     (command "donut" "0.0" dd (mapcar '+ pt1 (list dc dc 0)) "")
