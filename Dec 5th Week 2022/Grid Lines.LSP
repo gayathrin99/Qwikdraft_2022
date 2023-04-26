@@ -1,3 +1,4 @@
+(princ "Type \"GL\" into your command line")
 (defun c:gl (/)
   ;;(princ "Grid Line drawing")
   (setvar "osmode" 0)

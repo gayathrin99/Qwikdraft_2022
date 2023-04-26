@@ -120,7 +120,7 @@ a:hover{
     };
       </script>
     <button id="pay_button" onclick="paymentfunc()"> I want to pay </button>
-    <div id="payment" style="display:none;"> Pay Rs.500 for drawings for the software and we will return it if you aren't satissfied
+    <div id="payment" style="display:none;"> Pay Rs.1000 for drawings for the software and we will return it if you aren't satissfied
     <br>
             <img src="gpayscan.jpeg" height="300" width="300" align="middle">
 <br>
@@ -142,9 +142,9 @@ error_reporting(E_ALL);
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
-require "/home/g6bau7mbk3r2/public_html/PHPMailer-master/src/PHPMailer.php";
-require "/home/g6bau7mbk3r2/public_html/PHPMailer-master/src/Exception.php";
-require "/home/g6bau7mbk3r2/public_html/PHPMailer-master/src/SMTP.php";
+require "/home/u1ewclzlplgf/public_html/PHPMailer-master/src/PHPMailer.php";
+require "/home/u1ewclzlplgf/public_html/PHPMailer-master/src/Exception.php";
+require "/home/u1ewclzlplgf/public_html/PHPMailer-master/src/SMTP.php";
 if (isset($_POST["upload"])){
     $email_address = $_POST["emailid"];
     echo $email_address;
@@ -157,8 +157,8 @@ if (isset($_POST["upload"])){
         //echo "We have recieved your mail id";
         echo "<br>";
         $host="localhost";
-        $username="gayathri_qwikdraft";
-        $password=",rO=nhK[8";
+        $username="gayathri_n";
+        $password="Varalakshmi@99";
         $database="email_addresses";
         $to = $email_address;
         $from="qwikdraft@gmail.com";
@@ -177,7 +177,7 @@ if (isset($_POST["upload"])){
           </body>
           </html>
           ';
-          echo '<a href="/Footing Details.zip" download="Footing details"> Download </a>';
+          echo '<a href="/Footing details.zip" download="Footing details"> Download </a>';
           $message = stripslashes($message);
          $headers="Content-type: text/html; charset=UTF-8"."\r\n";
          $headers .= "MIME-Version: 1.0"."\r\n";
@@ -197,8 +197,8 @@ if (isset($_POST["upload"])){
           //echo $mail?"<h1>Email Sent Successfully!</h1>":"<h1>Email sending failed.</h1>"; 
          // echo "Sent you a mail";
           $host="localhost";
-          $username="gayathri_qwikdraft";
-          $password=",rO=nhK[8";
+          $username="gayathri_n";
+          $password="Varalakshmi@99";
           $database="email_addresses";
           $conn=mysqli_connect($host,$username,$password);
           mysqli_select_db($conn,$database);
@@ -209,8 +209,8 @@ if (isset($_POST["upload"])){
       else {
           
           //cho "we are connected to database";
-              $SELECT = "SELECT Email FROM user_email";
-              $INSERT = "INSERT into user_email (Email) values (?)";
+              $SELECT = "SELECT Email_Address FROM user_email";
+              $INSERT = "INSERT into user_email (Email_Address) values (?)";
               $stmt=$conn->prepare($INSERT);
               $stmt->bind_param("s",$email_address);
               $stmt->execute();

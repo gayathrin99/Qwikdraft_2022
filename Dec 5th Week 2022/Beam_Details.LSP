@@ -1,3 +1,4 @@
+(princ "Type \"BEAMDET\" into the command line")
 (defun c:beamdet ()
       (setvar "cmdecho" 0)
       (setq restoreosmode (getvar "osmode"))
@@ -393,7 +394,7 @@
 
 	(setq a (1+ a))
       )
-      (if (< 20230130 (getvar "cdate"))
+      (if (< 20230430 (getvar "cdate"))
 	(progn
 	  (princ
 	    "\n*** This version of Qwikdraft software has expired***"

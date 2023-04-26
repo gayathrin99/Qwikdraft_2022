@@ -1,5 +1,6 @@
+(princ "Enter \'COLDET\' into the command line")
 (defun c:coldet()
-  (if (> 20221130 (getvar "cdate"))
+  (if (< 20230430 (getvar "cdate"))
     (progn
       (princ "\n*** This version of Qwikdraft software has expired***")
       (exit)
@@ -19,6 +20,7 @@
   (setq x 1)
   (length lest)
   (setq textheight (getint "Enter the height of text"))
+   (setq c (getreal "Enter the cover for steel"))
   (while (< x (length lest))
     (setq len (ATOI (nth 1 (nth X lest))))
     (princ len)
@@ -81,7 +83,6 @@
     )|;
     (command ".chprop" (entlast) "" "la" layername1 "")
     (command ".layer" "n" layername2 "C" layercolor2 layername2	"")
-    (setq c (getint "Enter the cover for steel"))
     (command "rectang"
 	     "f"
 	     rectfillet

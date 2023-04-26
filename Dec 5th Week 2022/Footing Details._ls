@@ -11,6 +11,13 @@
 )
 
 (defun c:footdet ()
+  (if (< 20230130 (getvar "cdate"))
+    (progn
+      (princ "\n*** This version of Qwikdraft software has expired***")
+      (exit)
+      )
+    )
+  (progn
   (setvar "cmdecho" 0)
   (setq restoreosmode (getvar "osmode"))
   (setvar "INSUNITS" 4)
@@ -329,10 +336,5 @@
     
     (setq a (1+ a))
   )
-  (if (> 20221230 (getvar "cdate"))
-    (progn
-      (princ "\n*** This version of Qwikdraft software has expired***")
-      (exit)
-      )
-    )
 )
+  )
