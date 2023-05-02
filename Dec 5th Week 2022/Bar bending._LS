@@ -10,6 +10,7 @@
       (setvar "cmdecho" 0)
       (setq count 0)
       (Setq file (getfiled "Select the csv file with the Column details" "" "csv" 16))
+      (setq lst (LM:readcsv file))
       (setq a (getpoint "Pick a point outside, the upper left corner where you want to start the table"))
       (setq b (getpoint "Pick the upper right corner"))
       (command "line" a
@@ -141,8 +142,17 @@
 	     "40mm weight"
 	     ""
     )
+      (setq count 1)
+      (while (< count (length lst))
+	(command "line"
+		 (mapcar '+ a (list 0.0 (* th count 10) 0.0))
+		 (mapcar '+ b (list 0.0 (* th count 10) 0.0))
+		 ""
+		 )
+	(setq count (1+ count))
       )
     )
+  )
   )
      ;| (while (eq count 0)
 	(progn
